@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact{%endblock%}
+
+{% block content %}
+
+    <!-- Contact Section Begin -->
+    <section class="contact-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="contact-text">
+                        <h2>Contact Info</h2>
+                        <p>Call, WhatsApp or e-mail us for more details and enquiries.</p>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 400;">Phone/WhatsApp:</td>
+                                    <td> {{contact.phone1}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 400;">Email:</td>
+                                    <td>{{contact.email1}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 400;">Address:</td>
+                                    <td>{{contact.address1}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <h5 class="my-2 mt-2 text-decoration-underline">Other contact details:</h5>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="c-o">{%include 'icons/phone_32.svg' %}</td>
+                                    <td><ol>
+                                        <li>{{contact.phone1}}</li>
+                                        <li>{{contact.phone1}}</li>
+                                        <li>{{contact.phone1}}</li>
+                                    </ol></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="c-o">{%include 'icons/mail_32.svg' %}</td>
+                                    <td>{{contact.email2}}</td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1">
+                    <form method="post" class="row g-4 needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                            <label for="id_first_name" class="form-label">First name</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_last_name" class="form-label">Last name</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            {{ form.phone }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="id_message" class="form-label">Message</label>
+                            {{ form.message }}
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    I am not a robot
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="map d-flex justify-content-center" >
+               <div style="width: 75%;"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34369.0544785997!2d37.32262273203301!3d-0.5472786201118471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18262bfd04ed8113%3A0x570c959969b035d!2sThiba%20Dam%20Camp%20%26%20Resort%20Gardens!5e1!3m2!1sen!2ske!4v1737099955230!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    {%endblock%}
+    
+  

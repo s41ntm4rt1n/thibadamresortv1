@@ -1,0 +1,25 @@
+<form method="post" action="{% url 'check_availability' %}">
+    {% csrf_token %}
+    <div class="check-date">
+        <label for="date-in">{%include 'icons/check-in.svg' %}&nbsp;Check In:</label>
+        {{ form.check_in_date }}
+        
+    </div>
+    
+    <div class="check-date">
+        <label for="date-out">{%include 'icons/check-out.svg' %}&nbsp;Check Out:</label>
+        {{ form.check_out_date }}
+    </div>
+
+    <div class="select-option">
+        <label for="guest">{%include 'icons/guests.svg' %}&nbsp;Guests:</label>
+        {{ form.guests }}
+    </div>
+
+    <div class="select-option">
+        <label for="room">{%include 'icons/bed.svg' %}&nbsp;Room:</label>
+        {{ form.room }}
+    </div>
+    
+    <button type="submit">Check Availability</button>
+</form>

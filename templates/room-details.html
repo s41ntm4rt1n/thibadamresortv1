@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block title %}{{room.name}}{%endblock%}
+{% block head %}<style>
+    .btn{
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 16px 28px 15px;
+    background: #dfa974;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    }
+</style>{%endblock%}
+{% block content %}
+
+   
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>Our Rooms</h2>
+                        <div class="bt-option">
+                            <a href="{% url 'index' %}">Home</a>
+                            <span><a href="{% url 'rooms' %}">Rooms</a></span>
+                            <span>{{room.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <section class="room-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="room-details-item">
+                        <img src="{{room.image.url}}" alt="{{room.name}}">
+                        <div class="rd-text">
+                            <div class="rd-title">
+                                <h3>{{room.name}}</h3>
+                                <div class="rdt-right">
+                                    
+                                    <a href="{% url 'booking' %}">Book Now</a>
+                                </div>
+                            </div>
+                            <h5 class="mb-3"><span class="price-tag">Kshs. {{room.price}}</span>/per night</h5>
+                            <div class="gallery-container ">
+                                <h5 class="d-flex justify-content-center mx-2 my-4 text-decoration-underline">Images</h5>
+                                <div class="row">
+                                    {% for image in room.get_featured_images %}
+                                    <div class="col-lg-4">
+                                        <img class="gallery-item set-bg" src="{{image.image.url}}" alt="{{room.name}}"/>
+                                        
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <table>
+                                <tbody>
+                                    <h5 class="mx-2 text-decoration-underline">Features</h5>
+                                    {% for feature in room.get_features %}
+                                    <tr>
+                                        <td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="20px"><path d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"></path></svg>
+                                        {{feature.feature}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <p class="f-para">{{room.description}}
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-4">
+                    <div id="availability-response" class="mt-3"></div>
+                    <div class="room-booking">
+                        <h3>Your Reservation</h3>
+                        <div class="available-units">
+                            <p><strong>Available Units:</strong> {{ available_units }}</p>
+                        </div>
+                    
+                        <a href="{% url 'check_availability' %}" class="btn-link" style="color: #ffffff;">Check Availability</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block scripts %}
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const roomSelect = document.getElementById('room');
+    const availableUnits = parseInt("{{ available_units }}");  // Get available units from the Django context
+
+    const form = document.getElementById('availability-form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const checkInDate = document.getElementById('date-in').value;
+        const checkOutDate = document.getElementById('date-out').value;
+        const guestCount = document.getElementById('guest').value;
+        const roomId = roomSelect.value;
+        const slug = document.getElementById('slug').value;
+        // Check availability based on available units and form inputs
+        if (availableUnits <= 0) {
+            showAlert("Sorry, this room is no longer available.", "danger");
+            return;
+        }
+
+        // Send AJAX request to check availability
+        checkRoomAvailability(checkInDate, checkOutDate, guestCount, roomId, slug);
+    });
+
+    // Check room availability via AJAX
+    function checkRoomAvailability(checkInDate, checkOutDate, guestCount, roomId, slug) {
+        const url = `/check-room-availability/`; // URL for room availability check
+        const data = {
+            check_in_date: checkInDate,
+            check_out_date: checkOutDate,
+            guests: guestCount,
+            room_id: roomId,
+            slug: slug,
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')  // Django CSRF token
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.available) {
+                showAlert("The room is available for your selected dates!", "success");
+            } else {
+                showAlert("The room is not available for your selected dates. Please choose another date.", "danger");
+            }
+        })
+        .catch(error => {
+            console.error("Error checking room availability:", error);
+            showAlert("An error occurred while checking availability. Please try again.", "danger");
+        });
+    }
+
+    // Display a Bootstrap alert
+    function showAlert(message, type) {
+        const alertContainer = document.getElementById('availability-response');
+        alertContainer.innerHTML = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + "=")) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
+});
+
+
+</script>
+    {%endblock%}
+    {%endblock%}

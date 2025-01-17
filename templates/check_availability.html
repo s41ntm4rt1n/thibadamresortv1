@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Check Room Availability{%endblock%}
+{% block styles%}{%endblock%}
+{% block content %}
+
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Check Room Availability</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="rooms-section spad">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="room-booking col-lg-5 col-md-6">
+                {% include 'components/room-checker-form.html' %}
+            </div>               
+        </div>
+    </div>
+</section>
+    {%endblock%}

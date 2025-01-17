@@ -1,0 +1,60 @@
+{% load static %}
+<footer class="footer-section" style="background-color: #f3f1df;">
+<div class="container">
+    <div class="footer-text">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ft-about">
+                    <div class="logo">
+                        <a href="#">
+                            <h2>{{contact.company_name}}</h2>
+                        </a>
+                    </div>
+                    <div class="fa-social" >
+                        <a style="color: #000;" href="#"><i class="fa fa-facebook"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="ft-contact">
+                    <h6>Contact Us</h6>
+                    <ul>
+                        <li style="color: #000;">{%include 'icons/info.svg' %}&nbsp;{{contact.phone1}}</li>
+                        <li style="color: #000;">{%include 'icons/mail.svg' %}&nbsp;{{contact.email1}}</li>
+                        <li style="color: #000;">{%include 'icons/location.svg' %}&nbsp;{{contact.address1}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="ft-newslatter">
+                    <h6>Newsletter</h6>
+                    <p style="color: #000;">Get the latest updates and offers.</p>
+                    <form class="fn-form" id="newsletter-form" method="post" action="{% url 'newsletter' %}">
+                        {% csrf_token %}
+                        {{ newsletter_form.as_p }}
+                        <button type="submit"><i class="fa fa-send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="copyright-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <ul>
+                    <li><a style="color: #000;" href="{% url 'contact' %}">Contact</a></li>
+                    <li><a style="color: #000;" href="{% url 'terms' %}">Terms of use</a></li>
+                    <li><a style="color: #000;" href="{% url 'privacy' %}">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-5">
+                <div class="co-text"><p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Kazi Mashinani Org</p></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</footer>

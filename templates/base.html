@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sona Template">
+    <meta name="keywords" content="Sona, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{%endblock%}  — Thiba Dam Resort and Gardens</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/travel-icon.css' %}" type="text/css">
+    {% block styles %}{%endblock%}
+    {% block head %}{%endblock%}
+    <style>
+        .accordion-item{
+            border: 1px solid black;
+            border-radius: 2.5px;
+        }
+        #ui-datepicker-div{
+            display: none !important;
+        }
+        .price-tag{
+            color: #dfa974;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .text-decoration-underline{text-decoration: underline;}
+        [class^="icon-"], [class*=" icon-"] {
+            font-size: 50px;
+        }
+        body{
+            font-family: 'Inter';
+            background-color: #FBFAF3 !important;
+        }
+        .h1,h2,h3,h4,h5,h6{
+            font-family: "Manrope";
+        }
+        .manrope-600 {
+            font-family: "Manrope", serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+        }
+        .manrope-400 {
+            font-family: "Manrope", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .btn-link{
+            background-color: #111111;
+            border-width: 0;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size:  clamp(1rem, 1rem +((1vw - 0.2rem)* 0.196), 1.125rem);
+            line-height: inherit;
+            padding-top: 1rem;
+            padding-right: 2.25rem;
+            padding-bottom: 1rem;
+            padding-left: 2.25rem;
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        /* Custom styling for the form */
+    .check-date,
+    .select-option {
+        margin-bottom: 20px;
+    }
+    .check-date label,
+    .select-option label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+    .date-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+    .select-option select,
+    .select-option input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    /* Optional: Add icon styling */
+    .icon_calendar {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 18px;
+        color: #aaa;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+{% include 'components/nav.html' %}
+<div class="d-flex justify-content-end" style="padding-right: 20px;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                <p class="d-flex justify-content-center">{{ message }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% block content %}
+{% endblock %}
+{% include 'components/footer.html' %}
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch"><i class="icon_close"></i></div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+
+<script>
+    function highlightCurrentPage() {
+        var currentPath = window.location.pathname;
+        var navLinks = document.querySelectorAll('.navitem a');
+        navLinks.forEach(function(link) {
+            var linkPath = link.getAttribute('href');
+            if (linkPath === currentPath) {
+                link.classList.add('active');
+                var listItem = link.closest('li');
+                if (listItem) {
+                    listItem.classList.add('active');
+                }
+            }
+        });
+    }
+    document.addEventListener('DOMContentLoaded', highlightCurrentPage);
+    
+    document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('.alert-dismissible');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                if (alert.classList.contains('show')) {
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                    setTimeout(() => alert.remove(), 500);
+                }
+            }, 9000);
+        });
+    });
+    </script>
+    {% block scripts %}{%endblock%}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

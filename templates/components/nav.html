@@ -1,0 +1,100 @@
+{% load static %}
+<div class="offcanvas-menu-overlay"></div>
+<div class="canvas-open">
+    <i class="icon_menu"></i>
+</div>
+<div class="offcanvas-menu-wrapper">
+    <div class="canvas-close">
+        <i class="icon_close"></i>
+    </div>
+    <div class="search-icon  search-switch">
+        <i class="icon_search"></i>
+    </div>
+    <div class="header-configure-area">
+        <div class="language-option">
+            <img src="{% static 'img/flag.jpg' %}" alt="">
+            <span>EN <i class="fa fa-angle-down"></i></span>
+            <div class="flag-dropdown">
+                <ul>
+                    <li><a href="#">Fr</a></li>
+                </ul>
+            </div>
+        </div>
+        <a href="#" class="bk-btn">Book Now</a>
+    </div>
+    <nav class="mainmenu mobile-menu">
+        {% include 'components/nav-list.html' %}
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="top-social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-tripadvisor"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+    <ul class="top-widget">
+        <li><i class="fa fa-phone"></i>{{contact.phone}}</li>
+        <li><i class="fa fa-envelope"></i>{{contact.email}}</li>
+    </ul>
+</div>
+
+<header class="header-section">
+    <div class="top-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <ul class="tn-left">
+                        <li><i class="fa fa-phone"></i> <a style="color: black;"  href="tel:{{contact.phone1}}">{{contact.phone1}}</a></li>
+                        <li><i class="fa fa-envelope"></i><a style="color: black;" href="mailto:{{contact.email1}}">{{contact.email1}}</a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0"/>
+                              </svg>
+                        <a style="color: black;" href="mailto:{{contact.email2}}">{{contact.email2}}</a>  </li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <div class="tn-right">
+                        <div class="top-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                        <a href="{% url 'booking' %}" class="bk-btn">Book Now</a>
+                        <div class="language-option">
+                            <img src="{% static 'img/flag.jpg' %}" alt="">
+                            <span>EN <i class="fa fa-angle-down"></i></span>
+                            <div class="flag-dropdown">
+                                <ul>
+                                    <li><a href="#">Fr</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="{% url 'index' %}">
+                            <h2>{{contact.company_name}}</h2>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="nav-menu">
+                        <nav class="mainmenu">
+                            {% include 'components/nav-list.html' %}
+                        </nav>
+                        <div class="nav-right search-switch">
+                            <i class="icon_search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
